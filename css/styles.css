@@ -1,0 +1,72 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 400;
+}
+#hero-section {
+  background-image: url("../img/hero-bg.png");
+  background-size: cover;
+}
+.bg-primary {
+  background-color: #f94449;
+}
+.text-primary {
+  color: #f94449;
+}
+.text-center {
+  text-align: center;
+}
+#navlinks > a {
+  color: white;
+  text-decoration: none;
+  padding: 10px;
+  transition: all 0.25s ease;
+}
+#navlinks > a:hover {
+  opacity: 0.8;
+}
+.button {
+  background-color: #f94449;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 600;
+}
+.button:hover,
+.button-secondary:hover {
+  opacity: 0.8;
+}
+.button-secondary {
+  background-color: white;
+  color: #f94449;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 25px;
+  cursor: pointer;
+  transition: all 0.25s ease;
+  font-weight: 600;
+}
+.flex {
+  display: flex;
+}
+.flex-col {
+  flex-direction: column;
+}
+.justify-center {
+  justify-content: center;
+}
+.justify-between {
+  justify-content: space-between;
+}
+.justify-around {
+  justify-content: space-around;
+}
+.align-center {
+  align-items: center;
+}
