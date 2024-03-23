@@ -19,13 +19,15 @@
 .text-center {
   text-align: center;
 }
-#navlinks > a {
+#navlinks > a,
+.sidebar > a {
   color: white;
   text-decoration: none;
   padding: 10px;
   transition: all 0.25s ease;
 }
-#navlinks > a:hover {
+#navlinks > a:hover,
+.sidebar > a:hover {
   opacity: 0.8;
 }
 .button {
@@ -69,4 +71,12 @@
 }
 .align-center {
   align-items: center;
+}
+
+table > thead > tr > th,
+table > tbody > tr > td {
+  border-right: 1px solid #f94449;
+  border-bottom: 1px solid #f94449;
+  padding: 10px;
+  text-align: left;
 }
