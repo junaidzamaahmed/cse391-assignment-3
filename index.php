@@ -20,7 +20,8 @@ include './dbconnect.php';
             <div>
                 <h1 style="font-size:3rem;">Welcome to the ULTIMATE <br><span class="text-primary" style="font-weight: 600;">CAR WORKSHOP</span></h1>
                 <p>Get your car fixed by professionals</p>
-                <button class="button" style="margin-top: 10px;">BOOK AN APPOINTMENT</button>
+                <a href="book-appointment.php"> <button class="button" style="margin-top: 10px;">BOOK AN APPOINTMENT</button>
+                </a>
             </div>
             <div><img src="./img/hero-img.png" alt=""></div>
         </section>
