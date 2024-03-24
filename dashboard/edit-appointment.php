@@ -1,45 +1,45 @@
 <?php
 session_start();
 include '../dbconnect.php';
-$id = $_GET['id'];
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $sql = "SELECT * FROM appointment WHERE id=$id";
+    $result = mysqli_query($conn, $sql);
+    $row1 = mysqli_fetch_assoc($result);
+}
 if ($_SESSION['email'] == null || $_SESSION['email'] == "") {
     header('Location: login.php');
 }
 if ($_SESSION['isAdmin'] == false) {
     header('Location: login.php');
 }
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $date = $_POST['date'];
     $mid = $_POST['mid'];
-    $sameDateCheck = "SELECT * FROM appointment WHERE id='$id' AND date='$date'";
-    $result = mysqli_query($conn, $sameDateCheck);
-
+    $sql = "SELECT * FROM appointment WHERE date='$date' AND uid=$row1[uid]";
+    $result = mysqli_query($conn, $sql);
     if (mysqli_num_rows($result) > 0) {
-        echo "<script>alert('Client already has an appointment on the same date!')</script>";
+        echo "<script>alert('Client already has an appointment on the same date.')</script>";
     } else {
-        $maxAppointmentsCheck = "SELECT * FROM appointment WHERE mid='$mid' AND date='$date'";
-        $result = mysqli_query($conn, $maxAppointmentsCheck);
-        $rows = mysqli_num_rows($result);
+        $sql = "SELECT * FROM appointment WHERE date='$date' AND mid=$mid";
+        $result = mysqli_query($conn, $sql);
+        $sql = "SELECT * FROM mechanic WHERE id=$mid";
+        $result1 = mysqli_query($conn, $sql);
+        $row = mysqli_fetch_assoc($result1);
+        if (mysqli_num_rows($result) >= $row['maxCars']) {
+            echo "<script>alert('The mechanic has all the slots booked on this date.')</script>";
+            header('Location: edit-appointment.php?id=' . $id);
+        }
 
-        $maxAppointments = "SELECT maxCars FROM mechanic WHERE id='$mid'";
-        $result = mysqli_query($conn, $maxAppointments);
-        $row = mysqli_fetch_assoc($result);
-        $maxCars = $row['maxCars'];
-        if ($rows >= $maxCars) {
-            echo "<script>alert('This mechanic has reached the maximum number of appointments for this date!')</script>";
+        $sql = "UPDATE appointment SET date='$date', mid='$mid' WHERE id='$id'";
+        if (mysqli_query($conn, $sql)) {
+            header('Location: appointments.php');
         } else {
-            $sql = "UPDATE appointment SET date='$date', mid=$mid WHERE id=$id";
-            if (mysqli_query($conn, $sql)) {
-                header('Location: ../success.php');
-            } else {
-                echo "Error: " . $sql . "<br>" . mysqli_error($conn);
-            }
+            echo "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     }
 }
-$sql = "SELECT * FROM appointment WHERE id=" . $id;
-$result = mysqli_query($conn, $sql);
-$row1 = mysqli_fetch_assoc($result);
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +57,7 @@ $row1 = mysqli_fetch_assoc($result);
         <section class="flex justify-around align-center" style="height: 80vh;padding:2rem;">
             <div>
                 <h1 style="font-size:2rem; font-weight:500;" class="text-primary">Edit Appointment</h1>
-                <form action="edit-appointment.php" method="POST">
+                <form action="edit-appointment.php?id=<?php echo $id; ?>" method="POST">
                     <div class="flex" style="flex-direction:column; margin-bottom:10px;">
                         <label for="date">Date</label>
                         <input value="<?php echo $row1['date'] ?>" type="date" name="date" id="date" required style="padding: 10px; border-radius:10px; border:1px solid lightgray;">
@@ -70,6 +70,7 @@ $row1 = mysqli_fetch_assoc($result);
                             $result = mysqli_query($conn, $sql);
                             while ($row = mysqli_fetch_assoc($result)) {
                                 if ($row1['mid'] == $row['id']) {
+                                    echo "selected";
                                     echo "<option value='" . $row['id'] . "' selected>" . $row['name'] . "</option>";
                                 } else {
                                     echo "<option value='" . $row['id'] . "'>" . $row['name'] . "</option>";

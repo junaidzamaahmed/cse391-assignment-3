@@ -2,15 +2,15 @@
     <nav class="bg-primary flex justify-between align-center" style="color: white; padding: 30px;">
       <span style="font-size:x-large;">Car Workshop</span>
       <span id="navlinks">
-        <a href="index.php">Home</a>
-        <a href="contact.php">Contact</a>
+        <a href="/car_workshop/index.php">Home</a>
+        <a href="/car_workshop/contact.php">Contact</a>
         <?php
         if (isset($_SESSION['isAdmin'])) {
-          echo '<a href="dashboard.php">Dashboard</a>';
+          echo '<a href="/car_workshop/dashboard/appointments.php">Dashboard</a>';
         } ?>
       </span>
       <div>
-        <a href="book-appointment.php"> <button class="button-secondary">BOOK AN APPOINTMENT</button>
+        <a href="/car_workshop/book-appointment.php"> <button class="button-secondary">BOOK AN APPOINTMENT</button>
         </a>
         <?php
         if (isset($_SESSION['email'])) {
