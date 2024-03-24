@@ -14,7 +14,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
     $row = mysqli_fetch_assoc($result);
     $verify = password_verify($_POST['pass'], $row['pass']);
-    if ($row["email"] === $email && password_verify($_POST['pass'], $row['pass'])) {
+    if (!$verify) {
+        echo "<script>alert('Incorrect password!')</script>";
+    } else if ($row["email"] === $email && $verify) {
         $_SESSION['email'] = $row['email'];
         $_SESSION['name'] = $row['name'];
         $_SESSION['phone'] = $row['phone'];
