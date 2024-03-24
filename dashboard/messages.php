@@ -9,7 +9,7 @@ include '../dbconnect.php';
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard - Appointments</title>
+    <title>Dashboard - Messages</title>
     <link rel="stylesheet" href="../css/styles.css">
 </head>
 
@@ -24,38 +24,35 @@ include '../dbconnect.php';
             </div>
             <div style="padding:1rem; width:100%;">
                 <div class="flex justify-between align-center">
-                    <h1 style="font-size:2rem; font-weight:500;" class="text-primary">Appointments</h1>
-                    <a href="../book-appointment.php"><button class="button">Book Appointment</button></a>
+                    <h1 style="font-size:2rem; font-weight:500;" class="text-primary">Messages</h1>
                 </div>
                 <table style="width:100%;">
                     <thead>
                         <tr>
                             <th>Name</th>
                             <th>Phone</th>
-                            <th>License Number</th>
-                            <th>Date</th>
-                            <th>Mechanic</th>
-                            <th></th>
+                            <th>Message</th>
                             <th></th>
                         </tr>
                     </thead>
                     <tbody>
                         <?php
-                        $sql = "SELECT appointment.id,name,phone,license_no,date,mid FROM appointment, user WHERE appointment.uid=user.id";
+                        $sql = "SELECT * FROM message,user WHERE message.uid=user.id";
                         $result = mysqli_query($conn, $sql);
-                        while ($row = mysqli_fetch_assoc($result)) {
-                            echo "<tr>";
-                            echo "<td>" . $row['name'] . "</td>";
-                            echo "<td>" . $row['phone'] . "</td>";
-                            echo "<td>" . $row['license_no'] . "</td>";
-                            echo "<td>" . $row['date'] . "</td>";
-                            $sql2 = "SELECT * FROM mechanic WHERE id=" . $row['mid'];
-                            $result2 = mysqli_query($conn, $sql2);
-                            $row2 = mysqli_fetch_assoc($result2);
-                            echo "<td>" . $row2['name'] . "</td>";
-                            echo "<td><a style='text-decoration:none;' class='text-primary' href='edit-appointment.php?id=$row[id]'>Edit</a></td>";
-                            echo "<td><a style='text-decoration:none;' class='text-primary' href='delete-appointment.php?id=$row[id]'>Delete</a></td>";
-                            echo "</tr>";
+
+                        if (mysqli_num_rows($result) > 0) {
+                            while ($row = mysqli_fetch_assoc($result)) {
+                        ?>
+                                <tr>
+                                    <td><?php echo $row['name']; ?></td>
+                                    <td><?php echo $row['phone']; ?></td>
+                                    <td><?php echo $row['text']; ?></td>
+                                    <td><a class="text-primary" href="mailto:<?php echo $row['email']; ?>">Reply</a></td>
+                                </tr>
+                        <?php
+                            }
+                        } else {
+                            echo "<tr><td colspan='4'>No messages found!</td></tr>";
                         }
                         ?>
                     </tbody>

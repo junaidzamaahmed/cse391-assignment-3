@@ -20,6 +20,7 @@ include '../dbconnect.php';
             <div style="border:1px solid lightgray !important; height:60vh;padding:1rem;" class="sidebar flex-col flex">
                 <a style="color: black !important; border-bottom:1px solid lightgray;" href="./appointments.php">Appointments</a>
                 <a style="color: black !important; border-bottom:1px solid lightgray;" href="./mechanics.php">Mechanics</a>
+                <a style="color: black !important; border-bottom:1px solid lightgray;" href="./messages.php">Messages</a>
             </div>
             <div style="padding:1rem; width:100%;">
                 <div class="flex justify-between align-center">

@@ -6,8 +6,13 @@
         <a href="<?php echo $prefix ?>contact.php">Contact</a>
         <?php
         if (isset($_SESSION['isAdmin'])) {
-          echo '<a href="dashboard/appointments.php">Dashboard</a>';
-        } ?>
+          if ($prefix == "../") { ?>
+            <a href="./appointments.php">Dashboard</a>
+          <?php
+          } else { ?>
+            <a href="<?php echo $prefix ?>dashboard/appointments.php">Dashboard</a><?php
+                                                                                }
+                                                                              } ?>
       </span>
       <div>
         <a href="<?php echo $prefix ?>book-appointment.php"> <button class="button-secondary">BOOK AN APPOINTMENT</button>
