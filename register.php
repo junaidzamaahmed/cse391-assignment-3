@@ -68,7 +68,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="password" name="pass" id="pass" required style="padding: 10px; border-radius:10px; border:1px solid lightgray;">
                     </div>
                     <p class="text-primary"></p>
-                    <button type="submit" class="button">Submit</button>
+                    <button type="submit" class="button">Sign Up</button>
                 </form>
                 <br>
                 <a href="login.php" class="text-primary">Or, login to your existing account.</a>

@@ -1,6 +1,7 @@
 <?php
 session_start();
 include '../dbconnect.php';
+
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
     $sql = "SELECT * FROM appointment WHERE id=$id";
